@@ -3,7 +3,7 @@ import type { QuoteResponse, PageQuote } from '../types';
 import {
   FileText, CheckCircle2, DollarSign,
   Palette, Smartphone, Banknote, Layers,
-  Receipt, X
+  Receipt, X, ChevronDown
 } from 'lucide-react';
 import { recalculateQuote, recordPrintJob, recordPayment } from '../api';
 
@@ -174,15 +174,18 @@ export const QuoteViewer: React.FC<QuoteViewerProps> = ({
               <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">
                 Paper:
               </span>
-              <select
-                value={paperSize}
-                onChange={(e) => handlePaperChange(e.target.value)}
-                className="bg-white border border-slate-300 rounded-lg text-xs font-semibold px-2.5 py-1.5 text-slate-800 focus:ring-2 focus:ring-slate-900 focus:outline-none shadow-2xs cursor-pointer"
-              >
-                <option value="short">Short (Letter)</option>
-                <option value="a4">A4 Standard</option>
-                <option value="long">Long (Folio +₱1)</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={paperSize}
+                  onChange={(e) => handlePaperChange(e.target.value)}
+                  className="appearance-none bg-white border border-slate-300 rounded-lg text-xs font-semibold pl-2.5 pr-8 py-1.5 text-slate-800 focus:ring-2 focus:ring-slate-900 focus:outline-none shadow-2xs cursor-pointer hover:border-slate-400 transition-colors"
+                >
+                  <option value="short">Short (Letter)</option>
+                  <option value="a4">A4 Standard</option>
+                  <option value="long">Long (Folio +₱1)</option>
+                </select>
+                <ChevronDown className="w-3.5 h-3.5 text-slate-500 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              </div>
             </div>
 
             <div className="h-4 w-px bg-slate-300 hidden sm:block" />
