@@ -4,6 +4,7 @@ from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, List
 import io
+from pathlib import Path
 
 from .pricing import (
     PricingConfig, DEFAULT_PRICING, PaperSize, ColorTier,
@@ -101,6 +102,31 @@ async def quote_uploaded_file(
         return quote
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Failed to analyze PDF: {str(exc)}")
+
+
+@app.get("/api/quote/sample")
+def quote_sample_document():
+    """Analyzes the pre-bundled 4-page realistic print order for quick 1-click testing."""
+    sample_path = Path(__file__).parent.parent / "sample_documents" / "sample_print_order.pdf"
+    if not sample_path.exists():
+        raise HTTPException(status_code=404, detail="Sample PDF document not found.")
+
+    with open(sample_path, "rb") as f:
+        content = f.read()
+
+    try:
+        quote = analyze_pdf_document(
+            pdf_bytes=content,
+            config=current_pricing,
+            selected_paper_size=PaperSize.SHORT,
+            force_all_grayscale=False,
+            is_duplex=False
+        )
+        quote["filename"] = "sample_print_order.pdf"
+        return quote
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to analyze sample document: {str(exc)}")
+
 
 
 @app.post("/api/quote/url")

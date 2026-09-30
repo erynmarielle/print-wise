@@ -63,6 +63,15 @@ export async function quoteFromUrl(
   return res.json();
 }
 
+export async function fetchSampleQuote(): Promise<QuoteResponse> {
+  const res = await fetch(`${API_BASE}/api/quote/sample`, { method: 'GET' });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: 'Sample load failed' }));
+    throw new Error(err.detail || 'Failed to load sample print document.');
+  }
+  return res.json();
+}
+
 export async function recalculateQuote(
   paperSize: string,
   forceGrayscale: boolean,
