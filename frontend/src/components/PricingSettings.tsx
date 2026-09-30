@@ -36,137 +36,238 @@ export const PricingSettings: React.FC = () => {
     );
   }
 
+  const sampleTotal = (config.price_mono || 0) + (config.price_accent || 0) + (config.price_medium || 0) + (config.price_photo || 0);
+
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-      <div className="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100">
-        <div className="p-2 bg-emerald-50 text-emerald-600 rounded-xl">
-          <Settings className="w-5 h-5" />
-        </div>
-        <div>
-          <h2 className="text-lg font-bold text-slate-900">Store Rate Rules & Tiers</h2>
-          <p className="text-xs text-slate-500">
-            Configure how much your sari-sari store charges per page tier in Philippine Pesos (₱).
-          </p>
-        </div>
-      </div>
-
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* B&W */}
-          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
-            <label className="block text-xs font-bold uppercase text-slate-600 mb-1">
-              Monochrome / B&W (₱)
-            </label>
-            <input
-              type="number"
-              step="0.50"
-              value={config.price_mono}
-              onChange={(e) =>
-                setConfig({ ...config, price_mono: parseFloat(e.target.value) || 0 })
-              }
-              className="w-full text-base font-bold px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
-            />
-            <p className="text-[11px] text-slate-500 mt-1">Plain text, resumes, research docs</p>
+    <div className="max-w-3xl mx-auto space-y-6">
+      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-6">
+        <div className="flex items-center gap-3.5 mb-6 pb-4 border-b border-slate-100">
+          <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
+            <Settings className="w-5 h-5 text-amber-400" />
           </div>
-
-          {/* Accent Color */}
-          <div className="bg-sky-50/50 p-4 rounded-xl border border-sky-100">
-            <label className="block text-xs font-bold uppercase text-sky-800 mb-1">
-              Accent Color (&lt; 5% area) (₱)
-            </label>
-            <input
-              type="number"
-              step="0.50"
-              value={config.price_accent}
-              onChange={(e) =>
-                setConfig({ ...config, price_accent: parseFloat(e.target.value) || 0 })
-              }
-              className="w-full text-base font-bold px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
-            />
-            <p className="text-[11px] text-slate-500 mt-1">Logos, hyperlinks, colored headers</p>
-          </div>
-
-          {/* Medium Color */}
-          <div className="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100">
-            <label className="block text-xs font-bold uppercase text-indigo-800 mb-1">
-              Medium Graphic (5% - 25%) (₱)
-            </label>
-            <input
-              type="number"
-              step="0.50"
-              value={config.price_medium}
-              onChange={(e) =>
-                setConfig({ ...config, price_medium: parseFloat(e.target.value) || 0 })
-              }
-              className="w-full text-base font-bold px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
-            />
-            <p className="text-[11px] text-slate-500 mt-1">Presentation slides, diagrams, charts</p>
-          </div>
-
-          {/* Full Photo */}
-          <div className="bg-pink-50/50 p-4 rounded-xl border border-pink-100">
-            <label className="block text-xs font-bold uppercase text-pink-800 mb-1">
-              Full Photo / Heavy (&gt; 25%) (₱)
-            </label>
-            <input
-              type="number"
-              step="0.50"
-              value={config.price_photo}
-              onChange={(e) =>
-                setConfig({ ...config, price_photo: parseFloat(e.target.value) || 0 })
-              }
-              className="w-full text-base font-bold px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
-            />
-            <p className="text-[11px] text-slate-500 mt-1">Full-bleed photos, certificates, posters</p>
+          <div>
+            <h2 className="text-base font-bold text-slate-900 tracking-tight">Printing Rate Rules & Tiers</h2>
+            <p className="text-xs text-slate-500">
+              Configure baseline prices charged per page tier in Philippine Pesos (₱). All quoter computations update instantly.
+            </p>
           </div>
         </div>
 
-        {/* Paper Surcharges */}
-        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-3">
-            Paper Surcharge
-          </h3>
-          <div className="flex items-center justify-between">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* 4 Color Tiers Grid */}
+          <div>
+            <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-3">
+              Per-Page Color Tiers (Short / A4 Baseline)
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* B&W */}
+              <div className="bg-slate-50/80 p-4 rounded-xl border border-slate-200">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-slate-900" />
+                    Monochrome / B&W
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-500">0% Color</span>
+                </div>
+                <div className="relative">
+                  <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-slate-400 font-mono">
+                    ₱
+                  </span>
+                  <input
+                    type="number"
+                    step="0.25"
+                    min="0"
+                    value={config.price_mono}
+                    onChange={(e) =>
+                      setConfig({ ...config, price_mono: parseFloat(e.target.value) || 0 })
+                    }
+                    className="w-full pl-7 pr-3 py-2 text-base font-bold font-mono-numbers bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:outline-none"
+                  />
+                </div>
+                <p className="text-[11px] text-slate-500 mt-1.5">Plain text, research papers, resumes</p>
+              </div>
+
+              {/* Accent Color */}
+              <div className="bg-sky-50/50 p-4 rounded-xl border border-sky-200/80">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold text-sky-900 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-sky-500" />
+                    Accent Color
+                  </span>
+                  <span className="text-[10px] font-mono text-sky-700">&lt; 5% Coverage</span>
+                </div>
+                <div className="relative">
+                  <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-sky-400 font-mono">
+                    ₱
+                  </span>
+                  <input
+                    type="number"
+                    step="0.25"
+                    min="0"
+                    value={config.price_accent}
+                    onChange={(e) =>
+                      setConfig({ ...config, price_accent: parseFloat(e.target.value) || 0 })
+                    }
+                    className="w-full pl-7 pr-3 py-2 text-base font-bold font-mono-numbers bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:outline-none"
+                  />
+                </div>
+                <p className="text-[11px] text-slate-500 mt-1.5">Logos, hyperlinks, colored headers</p>
+              </div>
+
+              {/* Medium Graphic */}
+              <div className="bg-amber-50/50 p-4 rounded-xl border border-amber-200/80">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold text-amber-900 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-amber-500" />
+                    Medium Graphic
+                  </span>
+                  <span className="text-[10px] font-mono text-amber-700">5% – 25%</span>
+                </div>
+                <div className="relative">
+                  <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-amber-400 font-mono">
+                    ₱
+                  </span>
+                  <input
+                    type="number"
+                    step="0.25"
+                    min="0"
+                    value={config.price_medium}
+                    onChange={(e) =>
+                      setConfig({ ...config, price_medium: parseFloat(e.target.value) || 0 })
+                    }
+                    className="w-full pl-7 pr-3 py-2 text-base font-bold font-mono-numbers bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:outline-none"
+                  />
+                </div>
+                <p className="text-[11px] text-slate-500 mt-1.5">Presentation slides, diagrams, charts</p>
+              </div>
+
+              {/* Full Photo */}
+              <div className="bg-rose-50/50 p-4 rounded-xl border border-rose-200/80">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold text-rose-900 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-rose-500" />
+                    Full Photo / Heavy
+                  </span>
+                  <span className="text-[10px] font-mono text-rose-700">&gt; 25% Coverage</span>
+                </div>
+                <div className="relative">
+                  <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-rose-400 font-mono">
+                    ₱
+                  </span>
+                  <input
+                    type="number"
+                    step="0.25"
+                    min="0"
+                    value={config.price_photo}
+                    onChange={(e) =>
+                      setConfig({ ...config, price_photo: parseFloat(e.target.value) || 0 })
+                    }
+                    className="w-full pl-7 pr-3 py-2 text-base font-bold font-mono-numbers bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:outline-none"
+                  />
+                </div>
+                <p className="text-[11px] text-slate-500 mt-1.5">Full-bleed photos, certificates, heavy graphics</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Surcharges and Discounts */}
+          <div>
+            <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-3">
+              Size & Duplex Adjustments
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-slate-50/80 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
+                <div>
+                  <span className="text-xs font-bold text-slate-800 block">
+                    Long / Folio Surcharge (₱)
+                  </span>
+                  <p className="text-[11px] text-slate-500 mt-0.5 mb-2">
+                    Added per page for 8.5x13 or 8.5x14 paper
+                  </p>
+                </div>
+                <div className="relative">
+                  <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-slate-400 font-mono">
+                    +₱
+                  </span>
+                  <input
+                    type="number"
+                    step="0.25"
+                    min="0"
+                    value={config.long_paper_surcharge}
+                    onChange={(e) =>
+                      setConfig({ ...config, long_paper_surcharge: parseFloat(e.target.value) || 0 })
+                    }
+                    className="w-full pl-9 pr-3 py-2 text-sm font-bold font-mono-numbers bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="bg-slate-50/80 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
+                <div>
+                  <span className="text-xs font-bold text-slate-800 block">
+                    Back-to-Back Discount (%)
+                  </span>
+                  <p className="text-[11px] text-slate-500 mt-0.5 mb-2">
+                    Discount percentage applied when customer chooses duplex
+                  </p>
+                </div>
+                <div className="relative">
+                  <input
+                    type="number"
+                    step="1"
+                    min="0"
+                    max="50"
+                    value={config.duplex_discount_percent || 0}
+                    onChange={(e) =>
+                      setConfig({ ...config, duplex_discount_percent: parseFloat(e.target.value) || 0 })
+                    }
+                    className="w-full pr-8 pl-3 py-2 text-sm font-bold font-mono-numbers bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:outline-none"
+                  />
+                  <span className="absolute inset-y-0 right-0 pr-3 flex items-center text-xs font-bold text-slate-400 font-mono">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Real-time Rate Calculator Preview Docket */}
+          <div className="p-4 rounded-xl bg-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <span className="text-sm font-semibold text-slate-800">
-                Long / Folio / Legal Surcharge (₱)
-              </span>
-              <p className="text-[11px] text-slate-500">
-                Additional fee added per page when printing on 8.5x13 or Legal size
+              <p className="text-xs font-bold text-slate-200">Live Rate Calculation Preview</p>
+              <p className="text-[11px] text-slate-400">
+                1 Monochrome + 1 Accent + 1 Medium Graphic + 1 Full Photo on Short Paper:
               </p>
             </div>
-            <input
-              type="number"
-              step="0.50"
-              value={config.long_paper_surcharge}
-              onChange={(e) =>
-                setConfig({ ...config, long_paper_surcharge: parseFloat(e.target.value) || 0 })
-              }
-              className="w-24 text-base font-bold px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none text-right"
-            />
+            <div className="text-right">
+              <span className="font-mono-numbers text-2xl font-extrabold text-emerald-400">
+                ₱{sampleTotal.toFixed(2)}
+              </span>
+            </div>
           </div>
-        </div>
 
-        {/* Action Button */}
-        <div className="pt-2 flex items-center justify-between">
-          {savedSuccess ? (
-            <span className="inline-flex items-center text-xs font-semibold text-emerald-600 gap-1.5">
-              <CheckCircle className="w-4 h-4" /> Pricing rates saved and active!
-            </span>
-          ) : (
-            <span />
-          )}
+          {/* Action buttons */}
+          <div className="pt-2 flex items-center justify-between border-t border-slate-100">
+            {savedSuccess ? (
+              <span className="inline-flex items-center text-xs font-semibold text-emerald-700 gap-1.5">
+                <CheckCircle className="w-4 h-4 text-emerald-600" />
+                Store pricing rates saved and active!
+              </span>
+            ) : (
+              <span />
+            )}
 
-          <button
-            type="submit"
-            disabled={saving}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-6 rounded-xl transition-all shadow-sm flex items-center space-x-2"
-          >
-            <Save className="w-4 h-4" />
-            <span>{saving ? 'Saving...' : 'Save Rate Settings'}</span>
-          </button>
-        </div>
-      </form>
+            <button
+              type="submit"
+              disabled={saving}
+              className="bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 px-6 rounded-xl text-xs sm:text-sm transition-all shadow-xs flex items-center gap-2 pressable"
+            >
+              <Save className="w-4 h-4 text-emerald-400" />
+              <span>{saving ? 'Saving Changes...' : 'Save Rate Configuration'}</span>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

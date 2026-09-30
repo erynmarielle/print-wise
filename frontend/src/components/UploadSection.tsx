@@ -1,15 +1,17 @@
 import React, { useState, useRef } from 'react';
-import { UploadCloud, Link as LinkIcon, FileText, Loader2, Sparkles } from 'lucide-react';
+import { UploadCloud, Link as LinkIcon, FileText, Loader2, Sparkles, ArrowRight } from 'lucide-react';
 
 interface UploadSectionProps {
   onFileUpload: (file: File) => void;
   onUrlSubmit: (url: string) => void;
+  onSampleLoad?: () => void;
   isLoading: boolean;
 }
 
 export const UploadSection: React.FC<UploadSectionProps> = ({
   onFileUpload,
   onUrlSubmit,
+  onSampleLoad,
   isLoading,
 }) => {
   const [dragActive, setDragActive] = useState(false);
@@ -49,23 +51,27 @@ export const UploadSection: React.FC<UploadSectionProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left: Drag & Drop Zone */}
-        <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-2">
-            Option 1: Upload Document
-          </h2>
+    <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-5 sm:p-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+        {/* Dropzone Column */}
+        <div className="lg:col-span-6 flex flex-col">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-bold text-slate-700 uppercase tracking-wide">
+              Document Dropzone
+            </span>
+            <span className="text-[11px] text-slate-400">PDF, PNG, JPG</span>
+          </div>
+
           <div
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
-            className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all flex flex-col items-center justify-center min-h-[190px] ${
+            className={`flex-1 border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all flex flex-col items-center justify-center min-h-[170px] pressable ${
               dragActive
-                ? 'border-emerald-500 bg-emerald-50/50 scale-[0.99]'
-                : 'border-slate-300 hover:border-emerald-400 hover:bg-slate-50'
+                ? 'border-emerald-600 bg-emerald-50/60 scale-[0.99]'
+                : 'border-slate-300 hover:border-slate-400 bg-slate-50/60 hover:bg-slate-50'
             } ${isLoading ? 'pointer-events-none opacity-60' : ''}`}
           >
             <input
@@ -75,32 +81,35 @@ export const UploadSection: React.FC<UploadSectionProps> = ({
               onChange={handleFileChange}
               className="hidden"
             />
-            <div className="bg-emerald-100 text-emerald-700 p-3 rounded-full mb-3">
-              <UploadCloud className="w-6 h-6" />
+            <div className="w-11 h-11 bg-white rounded-xl shadow-xs border border-slate-200 flex items-center justify-center mb-2.5 text-slate-700">
+              <UploadCloud className="w-5 h-5 text-emerald-600" />
             </div>
-            <p className="text-sm font-semibold text-slate-800">
-              Drag & drop your PDF or image here
+            <p className="text-sm font-semibold text-slate-900">
+              Drag & drop document here
             </p>
-            <p className="text-xs text-slate-500 mt-1">
-              Supports PDF, PNG, JPG (Messenger downloads)
+            <p className="text-xs text-slate-500 mt-0.5">
+              or <span className="text-emerald-700 font-semibold underline underline-offset-2">browse computer</span>
             </p>
           </div>
         </div>
 
-        {/* Right: Google Docs / Slides Link */}
-        <div className="flex flex-col justify-between">
+        {/* Divider / Link Input Column */}
+        <div className="lg:col-span-6 flex flex-col justify-between">
           <div>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-2">
-              Option 2: Paste Google Docs or Slides Link
-            </h2>
-            <p className="text-xs text-slate-600 mb-3">
-              When customers send a Google Docs or Google Slides link in Messenger, paste it here.
-              We'll automatically extract and analyze every page.
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold text-slate-700 uppercase tracking-wide">
+                Google Docs or Slides Link
+              </span>
+              <span className="text-[11px] text-slate-400">Shared Links</span>
+            </div>
+
+            <p className="text-xs text-slate-500 mb-3 leading-relaxed">
+              When a customer sends a Google Docs, Slides, or Sheets URL via Messenger, paste it below to extract and quote every page automatically.
             </p>
 
             <form onSubmit={handleUrlSubmit} className="space-y-3">
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                   <LinkIcon className="w-4 h-4" />
                 </div>
                 <input
@@ -109,40 +118,49 @@ export const UploadSection: React.FC<UploadSectionProps> = ({
                   value={urlInput}
                   onChange={(e) => setUrlInput(e.target.value)}
                   disabled={isLoading}
-                  className="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                  className="w-full pl-10 pr-3 py-2.5 text-sm bg-slate-50/70 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all text-slate-900 placeholder:text-slate-400"
                 />
               </div>
 
-              <div className="flex gap-2">
-                <button
-                  type="submit"
-                  disabled={isLoading || !urlInput.trim()}
-                  className="flex-1 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-medium py-2.5 px-4 rounded-xl text-sm transition-all flex items-center justify-center space-x-2 shadow-sm"
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Analyzing Document...</span>
-                    </>
-                  ) : (
-                    <>
-                      <FileText className="w-4 h-4" />
-                      <span>Analyze Google Link</span>
-                    </>
-                  )}
-                </button>
-              </div>
+              <button
+                type="submit"
+                disabled={isLoading || !urlInput.trim()}
+                className="w-full bg-slate-900 hover:bg-slate-800 disabled:opacity-40 text-white font-semibold py-2.5 px-4 rounded-xl text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-xs pressable"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-emerald-400" />
+                    <span>Analyzing Ink Density...</span>
+                  </>
+                ) : (
+                  <>
+                    <FileText className="w-4 h-4 text-emerald-400" />
+                    <span>Fetch & Quote Link</span>
+                    <ArrowRight className="w-3.5 h-3.5 opacity-60 ml-0.5" />
+                  </>
+                )}
+              </button>
             </form>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span className="flex items-center gap-1 text-emerald-700 font-medium">
-              <Sparkles className="w-3.5 h-3.5" /> Fast sub-second CMYK analysis
-            </span>
-            <span>Make sure Google Drive link is viewable</span>
-          </div>
+          {/* Quick Action Test Helper */}
+          {onSampleLoad && (
+            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span className="text-[11px] text-slate-500">Need to test quoter?</span>
+              <button
+                type="button"
+                onClick={onSampleLoad}
+                disabled={isLoading}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100/70 border border-emerald-200/80 px-2.5 py-1 rounded-lg transition-all pressable"
+              >
+                <Sparkles className="w-3 h-3 text-emerald-600" />
+                <span>Load 4-Page Sample Document</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
+
