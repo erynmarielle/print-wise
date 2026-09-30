@@ -240,7 +240,7 @@ export const PricingSettings: React.FC = () => {
               </p>
             </div>
             <div className="text-right">
-              <span className="font-mono-numbers text-2xl font-extrabold text-emerald-400">
+              <span className="font-mono-numbers text-2xl font-extrabold text-sky-400">
                 ₱{sampleTotal.toFixed(2)}
               </span>
             </div>
@@ -249,8 +249,8 @@ export const PricingSettings: React.FC = () => {
           {/* Action buttons */}
           <div className="pt-2 flex items-center justify-between border-t border-slate-100">
             {savedSuccess ? (
-              <span className="inline-flex items-center text-xs font-semibold text-emerald-700 gap-1.5">
-                <CheckCircle className="w-4 h-4 text-emerald-600" />
+              <span className="inline-flex items-center text-xs font-semibold text-sky-700 gap-1.5">
+                <CheckCircle className="w-4 h-4 text-sky-600" />
                 Store pricing rates saved and active!
               </span>
             ) : (
@@ -262,7 +262,7 @@ export const PricingSettings: React.FC = () => {
               disabled={saving}
               className="bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 px-6 rounded-xl text-xs sm:text-sm transition-all shadow-xs flex items-center gap-2 pressable"
             >
-              <Save className="w-4 h-4 text-emerald-400" />
+              <Save className="w-4 h-4 text-sky-400" />
               <span>{saving ? 'Saving Changes...' : 'Save Rate Configuration'}</span>
             </button>
           </div>

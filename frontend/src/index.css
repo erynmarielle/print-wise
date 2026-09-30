@@ -7,11 +7,10 @@
   --color-ink-primary: #0f172a;
   --color-ink-secondary: #334155;
   --color-ink-muted: #64748b;
-  --color-print-teal: #0f766e;
   --color-cmyk-cyan: #0284c7;
   --color-cmyk-magenta: #e11d48;
-  --color-cmyk-amber: #d97706;
-  --color-cmyk-black: #18181b;
+  --color-cmyk-yellow: #d97706;
+  --color-cmyk-black: #0f172a;
   --color-pos-gcash: #0066f5;
 }
 

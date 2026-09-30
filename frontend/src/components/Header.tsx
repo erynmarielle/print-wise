@@ -40,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, isOnlin
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <Printer className="w-3.5 h-3.5 text-emerald-600" />
+              <Printer className="w-3.5 h-3.5 text-sky-600" />
               <span>Quoter & POS</span>
             </button>
 
@@ -52,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, isOnlin
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <TrendingUp className="w-3.5 h-3.5 text-blue-600" />
+              <TrendingUp className="w-3.5 h-3.5 text-rose-600" />
               <span>Sales Ledger</span>
             </button>
 
@@ -64,7 +64,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, isOnlin
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <Sliders className="w-3.5 h-3.5 text-amber-600" />
+              <Sliders className="w-3.5 h-3.5 text-amber-500" />
               <span>Store Rates</span>
             </button>
           </nav>
@@ -72,10 +72,10 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, isOnlin
           {/* Engine Status */}
           <div className="flex items-center">
             {isOnline ? (
-              <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-50/80 border border-emerald-200/80 text-emerald-800 text-xs font-medium">
+              <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-sky-50/90 border border-sky-200/80 text-sky-800 text-xs font-medium">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
                 </span>
                 <span className="hidden sm:inline">Engine Online</span>
               </div>

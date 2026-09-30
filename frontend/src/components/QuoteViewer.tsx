@@ -120,14 +120,14 @@ export const QuoteViewer: React.FC<QuoteViewerProps> = ({
         {/* Ticket Header Bar */}
         <div className="bg-slate-900 text-white px-5 py-3 flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2">
-            <Receipt className="w-4 h-4 text-emerald-400" />
+            <Receipt className="w-4 h-4 text-sky-400" />
             <span className="font-bold tracking-wide">PRINT ORDER QUOTE</span>
             <span className="text-slate-400 font-mono">#{quote.filename.slice(0, 24)}</span>
           </div>
           <div className="flex items-center gap-3 text-slate-300">
             <span className="font-mono-numbers">{quote.total_pages} Sheets</span>
             <span className="text-slate-600">•</span>
-            <span className="uppercase font-semibold text-emerald-400">{paperSize} Size</span>
+            <span className="uppercase font-semibold text-sky-400">{paperSize} Size</span>
             {isDuplex && (
               <>
                 <span className="text-slate-600">•</span>
@@ -231,11 +231,11 @@ export const QuoteViewer: React.FC<QuoteViewerProps> = ({
                   onClick={handleDuplexToggle}
                   className={`text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1.5 pressable shadow-2xs ${
                     isDuplex
-                      ? 'bg-emerald-700 text-white border-emerald-700'
+                      ? 'bg-slate-900 text-white border-slate-900'
                       : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
                   }`}
                 >
-                  <Layers className="w-3.5 h-3.5 text-emerald-400" />
+                  <Layers className="w-3.5 h-3.5 text-sky-400" />
                   <span>{isDuplex ? '✓ 2-Sided' : '1-Sided'}</span>
                 </button>
               </div>
@@ -258,9 +258,9 @@ export const QuoteViewer: React.FC<QuoteViewerProps> = ({
                   setAmountPaid(quote.total_price.toString());
                   setIsCheckingOut(true);
                 }}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 pressable"
+                className="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 pressable"
               >
-                <DollarSign className="w-4 h-4 text-emerald-200" />
+                <DollarSign className="w-4 h-4 text-sky-200" />
                 <span className="text-sm">Collect / Pay</span>
               </button>
             </div>
@@ -314,7 +314,7 @@ export const QuoteViewer: React.FC<QuoteViewerProps> = ({
                       <span className="font-mono-numbers">₱{numericPaid.toFixed(2)}</span>
                     </div>
                     {paymentMethod === 'CASH' && (
-                      <div className="flex justify-between font-bold text-emerald-700">
+                      <div className="flex justify-between font-bold text-amber-800">
                         <span>CHANGE RETURNED:</span>
                         <span className="font-mono-numbers">₱{changeDue.toFixed(2)}</span>
                       </div>
@@ -340,7 +340,7 @@ export const QuoteViewer: React.FC<QuoteViewerProps> = ({
                 {/* Modal Header */}
                 <div className="bg-slate-900 text-white px-5 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <Receipt className="w-5 h-5 text-emerald-400" />
+                    <Receipt className="w-5 h-5 text-sky-400" />
                     <div>
                       <h3 className="font-bold text-sm">Cashier Payment Register</h3>
                       <p className="text-[11px] text-slate-400 font-mono truncate max-w-[280px]">
@@ -382,11 +382,11 @@ export const QuoteViewer: React.FC<QuoteViewerProps> = ({
                         onClick={() => setPaymentMethod('CASH')}
                         className={`p-3 rounded-xl border flex items-center justify-center gap-2 font-bold text-xs transition-all pressable ${
                           paymentMethod === 'CASH'
-                            ? 'border-emerald-600 bg-emerald-50 text-emerald-900 ring-2 ring-emerald-500/20 shadow-2xs'
+                            ? 'border-amber-500 bg-amber-50 text-amber-900 ring-2 ring-amber-500/20 shadow-2xs'
                             : 'border-slate-200 hover:bg-slate-50 text-slate-600'
                         }`}
                       >
-                        <Banknote className="w-4 h-4 text-emerald-600" />
+                        <Banknote className="w-4 h-4 text-amber-600" />
                         <span>Cash Drawer</span>
                       </button>
 
@@ -407,9 +407,9 @@ export const QuoteViewer: React.FC<QuoteViewerProps> = ({
 
                   {/* Cash Drawer Calculator */}
                   {paymentMethod === 'CASH' ? (
-                    <div className="space-y-3 bg-emerald-50/40 p-3.5 rounded-xl border border-emerald-200/80">
+                    <div className="space-y-3 bg-amber-50/50 p-3.5 rounded-xl border border-amber-200/80">
                       <div className="flex items-center justify-between">
-                        <label className="text-[11px] font-bold uppercase tracking-wide text-emerald-900">
+                        <label className="text-[11px] font-bold uppercase tracking-wide text-amber-900">
                           Cash Tendered (₱)
                         </label>
                         <span className="text-[11px] text-slate-500">Tap quick bill preset:</span>
@@ -435,7 +435,7 @@ export const QuoteViewer: React.FC<QuoteViewerProps> = ({
                               onClick={() => setAmountPaid(val.toString())}
                               className={`px-2.5 py-1 text-xs font-bold rounded-lg border transition-all pressable ${
                                 numericPaid === val
-                                  ? 'bg-emerald-700 text-white border-emerald-700'
+                                  ? 'bg-amber-600 text-white border-amber-600'
                                   : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
                               }`}
                             >
@@ -454,9 +454,9 @@ export const QuoteViewer: React.FC<QuoteViewerProps> = ({
                       />
 
                       {/* Change Due readout */}
-                      <div className="flex justify-between items-center px-1 pt-1 border-t border-emerald-200/60 text-xs font-semibold">
+                      <div className="flex justify-between items-center px-1 pt-1 border-t border-amber-200/80 text-xs font-semibold">
                         <span className="text-slate-600">Change to Return:</span>
-                        <span className="font-mono-numbers text-base font-extrabold text-emerald-800">
+                        <span className="font-mono-numbers text-base font-extrabold text-amber-900">
                           ₱{changeDue.toFixed(2)}
                         </span>
                       </div>
@@ -514,9 +514,9 @@ export const QuoteViewer: React.FC<QuoteViewerProps> = ({
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex-1 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-1.5 pressable"
+                      className="flex-1 px-4 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-1.5 pressable"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-emerald-200" />
+                      <CheckCircle2 className="w-4 h-4 text-sky-200" />
                       <span>{isSubmitting ? 'Recording...' : `Confirm Payment (₱${quote.total_price.toFixed(2)})`}</span>
                     </button>
                   </div>
