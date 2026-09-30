@@ -12,20 +12,16 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, isOnlin
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Brand Mark with CMYK signature dots */}
-          <div className="flex items-center space-x-3.5">
-            <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
-              <Printer className="w-5 h-5 text-emerald-400" />
+          <div className="flex items-center space-x-3">
+            <div className="flex items-center gap-1.5" aria-label="CMYK colors">
+              <span className="w-2.5 h-2.5 rounded-full bg-sky-500" title="Cyan" />
+              <span className="w-2.5 h-2.5 rounded-full bg-rose-500" title="Magenta" />
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-400" title="Yellow" />
+              <span className="w-2.5 h-2.5 rounded-full bg-slate-900" title="Key / Black" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-bold text-lg text-slate-900 tracking-tight">PrintWise</span>
-                {/* Micro CMYK indicator */}
-                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200" title="CMYK Color Density Engine">
-                  <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-900" />
-                </span>
                 <span className="hidden sm:inline-block text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
                   POS Counter
                 </span>
