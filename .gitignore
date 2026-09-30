@@ -5,7 +5,10 @@ __pycache__/
 *$py.class
 *.db
 *.sqlite3
+*.db-wal
+*.db-shm
 .pytest_cache/
+
 
 # Node
 frontend/node_modules/
