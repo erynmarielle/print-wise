@@ -115,155 +115,139 @@ export const QuoteViewer: React.FC<QuoteViewerProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Top Banner: Print Order Ticket & Cashier Deck */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden">
-        {/* Ticket Header Bar */}
-        <div className="bg-slate-900 text-white px-5 py-3 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2">
-            <Receipt className="w-4 h-4 text-sky-400" />
-            <span className="font-bold tracking-wide">PRINT ORDER QUOTE</span>
-            <span className="text-slate-400 font-mono">#{quote.filename.slice(0, 24)}</span>
+      {/* Top Banner: Print Order Summary & POS Action Card */}
+      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden mb-6">
+        {/* Card Header: Document info & Clean CMYK Badges */}
+        <div className="p-5 sm:p-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5 min-w-0">
+            <div className="w-11 h-11 rounded-xl bg-slate-100 border border-slate-200/80 flex items-center justify-center shrink-0 text-slate-700">
+              <FileText className="w-5 h-5 text-slate-800" />
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h3 className="font-bold text-slate-900 text-base sm:text-lg tracking-tight truncate max-w-[280px] sm:max-w-md">
+                  {quote.filename}
+                </h3>
+                <span className="text-[11px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md shrink-0">
+                  {quote.total_pages} {quote.total_pages === 1 ? 'Sheet' : 'Sheets'}
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Auto-detected: <span className="font-semibold text-slate-700 uppercase">{quote.primary_paper_size}</span> · 150 DPI page scan
+              </p>
+            </div>
           </div>
-          <div className="flex items-center gap-3 text-slate-300">
-            <span className="font-mono-numbers">{quote.total_pages} Sheets</span>
-            <span className="text-slate-600">•</span>
-            <span className="uppercase font-semibold text-sky-400">{paperSize} Size</span>
-            {isDuplex && (
-              <>
-                <span className="text-slate-600">•</span>
-                <span className="text-sky-300 font-semibold">Duplex</span>
-              </>
-            )}
+
+          {/* Clean CMYK Color Breakdown */}
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 shrink-0">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200/80">
+              <span className="w-2 h-2 rounded-full bg-slate-900" />
+              <span>B&W</span>
+              <span className="font-mono-numbers font-bold text-slate-900 ml-0.5">{quote.tier_summary.mono}</span>
+            </div>
+
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-sky-50 text-sky-900 border border-sky-200">
+              <span className="w-2 h-2 rounded-full bg-sky-500" />
+              <span>Accent</span>
+              <span className="font-mono-numbers font-bold text-sky-900 ml-0.5">{quote.tier_summary.accent}</span>
+            </div>
+
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-200">
+              <span className="w-2 h-2 rounded-full bg-amber-500" />
+              <span>Medium</span>
+              <span className="font-mono-numbers font-bold text-amber-900 ml-0.5">{quote.tier_summary.medium}</span>
+            </div>
+
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-rose-50 text-rose-900 border border-rose-200">
+              <span className="w-2 h-2 rounded-full bg-rose-500" />
+              <span>Photo</span>
+              <span className="font-mono-numbers font-bold text-rose-900 ml-0.5">{quote.tier_summary.photo}</span>
+            </div>
           </div>
         </div>
 
-        <div className="p-5 sm:p-6">
-          <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6">
-            {/* Left: Document info & CMYK Breakdown */}
-            <div className="flex-1">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0 text-slate-700">
-                  <FileText className="w-5 h-5 text-slate-800" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-slate-900 text-lg tracking-tight leading-tight">
-                    {quote.filename}
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-0.5">
-                    Analyzed page-by-page at 150 DPI · Auto-detected bounding box: {quote.primary_paper_size.toUpperCase()}
-                  </p>
-                </div>
-              </div>
-
-              {/* CMYK Color Tier Distribution */}
-              <div className="mt-4 flex flex-wrap gap-2">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200/80">
-                  <span className="w-2 h-2 rounded-full bg-slate-900" />
-                  <span>B&W:</span>
-                  <span className="font-mono-numbers font-bold">{quote.tier_summary.mono}</span>
-                </div>
-
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-sky-50 text-sky-900 border border-sky-200">
-                  <span className="w-2 h-2 rounded-full bg-sky-500" />
-                  <span>Accent (&lt;5%):</span>
-                  <span className="font-mono-numbers font-bold">{quote.tier_summary.accent}</span>
-                </div>
-
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-200">
-                  <span className="w-2 h-2 rounded-full bg-amber-500" />
-                  <span>Medium (5-25%):</span>
-                  <span className="font-mono-numbers font-bold">{quote.tier_summary.medium}</span>
-                </div>
-
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-rose-50 text-rose-900 border border-rose-200">
-                  <span className="w-2 h-2 rounded-full bg-rose-500" />
-                  <span>Photo (&gt;25%):</span>
-                  <span className="font-mono-numbers font-bold">{quote.tier_summary.photo}</span>
-                </div>
-              </div>
+        {/* Card Footer: Document Controls & Checkout CTA */}
+        <div className="px-5 py-4 bg-slate-50/70 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          {/* Print Options */}
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">
+                Paper:
+              </span>
+              <select
+                value={paperSize}
+                onChange={(e) => handlePaperChange(e.target.value)}
+                className="bg-white border border-slate-300 rounded-lg text-xs font-semibold px-2.5 py-1.5 text-slate-800 focus:ring-2 focus:ring-slate-900 focus:outline-none shadow-2xs cursor-pointer"
+              >
+                <option value="short">Short (Letter)</option>
+                <option value="a4">A4 Standard</option>
+                <option value="long">Long (Folio +₱1)</option>
+              </select>
             </div>
 
-            {/* Right: Cashier Operator Controls & Total Price Docket */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-slate-50/80 p-3.5 sm:p-4 rounded-xl border border-slate-200">
-              {/* Paper selector */}
-              <div>
-                <span className="block text-[11px] font-bold text-slate-600 uppercase tracking-wide mb-1">
-                  Paper
-                </span>
-                <select
-                  value={paperSize}
-                  onChange={(e) => handlePaperChange(e.target.value)}
-                  className="bg-white border border-slate-300 rounded-lg text-xs font-semibold px-2.5 py-1.5 text-slate-800 focus:ring-2 focus:ring-slate-900 focus:outline-none shadow-2xs"
-                >
-                  <option value="short">Short / Letter</option>
-                  <option value="a4">A4 Standard</option>
-                  <option value="long">Long / Folio (+₱1)</option>
-                </select>
-              </div>
+            <div className="h-4 w-px bg-slate-300 hidden sm:block" />
 
-              {/* Force All B&W button */}
-              <div>
-                <span className="block text-[11px] font-bold text-slate-600 uppercase tracking-wide mb-1">
-                  Color Mode
-                </span>
-                <button
-                  type="button"
-                  onClick={handleGlobalGrayToggle}
-                  className={`text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1.5 pressable shadow-2xs ${
-                    forceAllGray
-                      ? 'bg-slate-900 text-white border-slate-900'
-                      : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
-                  }`}
-                  title="Recalculates all pages as black and white for discount inquiries"
-                >
-                  <Palette className="w-3.5 h-3.5 text-amber-400" />
-                  <span>{forceAllGray ? '✓ B&W Active' : 'Force All B&W'}</span>
-                </button>
-              </div>
-
-              {/* Duplex switch */}
-              <div>
-                <span className="block text-[11px] font-bold text-slate-600 uppercase tracking-wide mb-1">
-                  Sides
-                </span>
-                <button
-                  type="button"
-                  onClick={handleDuplexToggle}
-                  className={`text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1.5 pressable shadow-2xs ${
-                    isDuplex
-                      ? 'bg-slate-900 text-white border-slate-900'
-                      : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
-                  }`}
-                >
-                  <Layers className="w-3.5 h-3.5 text-sky-400" />
-                  <span>{isDuplex ? '✓ 2-Sided' : '1-Sided'}</span>
-                </button>
-              </div>
-
-              {/* Total Price Display */}
-              <div className="sm:pl-3 sm:border-l border-slate-200 flex flex-col justify-center min-w-[130px]">
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                  Total Order Due
-                </span>
-                <div className="flex items-baseline">
-                  <span className="font-mono-numbers text-3xl font-extrabold text-slate-900 tracking-tight">
-                    ₱{quote.total_price.toFixed(2)}
-                  </span>
-                </div>
-              </div>
-
-              {/* POS Checkout CTA */}
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">
+                Mode:
+              </span>
               <button
-                onClick={() => {
-                  setAmountPaid(quote.total_price.toString());
-                  setIsCheckingOut(true);
-                }}
-                className="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 pressable"
+                type="button"
+                onClick={handleGlobalGrayToggle}
+                className={`text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1.5 pressable shadow-2xs ${
+                  forceAllGray
+                    ? 'bg-slate-900 text-white border-slate-900'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                }`}
+                title="Recalculates all pages as black and white for discount inquiries"
               >
-                <DollarSign className="w-4 h-4 text-sky-200" />
-                <span className="text-sm">Collect / Pay</span>
+                <Palette className="w-3.5 h-3.5 text-amber-500" />
+                <span>{forceAllGray ? '✓ B&W Mode' : 'Color As-Is'}</span>
               </button>
             </div>
+
+            <div className="h-4 w-px bg-slate-300 hidden sm:block" />
+
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">
+                Print:
+              </span>
+              <button
+                type="button"
+                onClick={handleDuplexToggle}
+                className={`text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1.5 pressable shadow-2xs ${
+                  isDuplex
+                    ? 'bg-slate-900 text-white border-slate-900'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                }`}
+              >
+                <Layers className="w-3.5 h-3.5 text-sky-400" />
+                <span>{isDuplex ? '✓ 2-Sided' : '1-Sided'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Pricing & Checkout Action */}
+          <div className="flex items-center justify-between lg:justify-end gap-5 pt-3 lg:pt-0 border-t lg:border-t-0 border-slate-200">
+            <div className="text-left lg:text-right">
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                Total Due
+              </span>
+              <span className="font-mono-numbers text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-none block mt-0.5">
+                ₱{quote.total_price.toFixed(2)}
+              </span>
+            </div>
+
+            <button
+              onClick={() => {
+                setAmountPaid(quote.total_price.toString());
+                setIsCheckingOut(true);
+              }}
+              className="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 px-5 rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 pressable"
+            >
+              <DollarSign className="w-4 h-4 text-sky-200" />
+              <span className="text-xs sm:text-sm">Collect / Pay</span>
+            </button>
           </div>
         </div>
       </div>
