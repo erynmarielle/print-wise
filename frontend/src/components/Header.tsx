@@ -11,13 +11,18 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
     <header className="bg-white border-b border-slate-200/80 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Brand Mark with CMYK signature dots */}
+          {/* Brand Mark with CMYK signature dots in a box-type container */}
           <div className="flex items-center space-x-3">
-            <div className="flex items-center gap-1.5" aria-label="CMYK colors">
-              <span className="w-2.5 h-2.5 rounded-full bg-sky-500" title="Cyan" />
-              <span className="w-2.5 h-2.5 rounded-full bg-rose-500" title="Magenta" />
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-400" title="Yellow" />
-              <span className="w-2.5 h-2.5 rounded-full bg-slate-900" title="Key / Black" />
+            <div
+              className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200/80 shadow-2xs flex items-center justify-center shrink-0"
+              aria-label="CMYK colors"
+            >
+              <div className="grid grid-cols-2 gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-sky-500" title="Cyan" />
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-500" title="Magenta" />
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400" title="Yellow" />
+                <span className="w-2.5 h-2.5 rounded-full bg-slate-900" title="Key / Black" />
+              </div>
             </div>
             <div>
               <span className="font-bold text-lg text-slate-900 tracking-tight leading-none block">PrintWise</span>
