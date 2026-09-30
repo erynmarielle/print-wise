@@ -6,7 +6,7 @@ import { RevenueDashboard } from './components/RevenueDashboard';
 import { PricingSettings } from './components/PricingSettings';
 import type { QuoteResponse } from './types';
 import { checkBackendHealth, uploadAndQuote, quoteFromUrl, fetchSampleQuote } from './api';
-import { AlertCircle, Printer, Sparkles } from 'lucide-react';
+import { AlertCircle, Sparkles } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'pos' | 'revenue' | 'pricing'>('pos');
@@ -101,8 +101,11 @@ export const App: React.FC = () => {
               />
             ) : (
               <div className="bg-white rounded-2xl border border-slate-200/90 p-8 sm:p-12 text-center shadow-xs">
-                <div className="w-14 h-14 bg-slate-900 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xs">
-                  <Printer className="w-7 h-7 text-emerald-400" />
+                <div className="grid grid-cols-2 gap-2 p-3.5 bg-slate-100 rounded-2xl w-14 h-14 mx-auto mb-4 border border-slate-200/80 items-center justify-center shadow-xs">
+                  <span className="w-2.5 h-2.5 rounded-full bg-sky-500" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-slate-900" />
                 </div>
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
                   Printing Counter Ready
@@ -118,7 +121,7 @@ export const App: React.FC = () => {
                     disabled={isLoading}
                     className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-xs transition-all pressable"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                    <Sparkles className="w-3.5 h-3.5 text-sky-400" />
                     <span>Run Demo on 4-Page Sample PDF</span>
                   </button>
                 </div>

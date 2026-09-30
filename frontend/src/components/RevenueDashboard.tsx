@@ -88,7 +88,7 @@ export const RevenueDashboard: React.FC = () => {
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
                 Gross Collections
               </span>
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              <span className="w-2 h-2 rounded-full bg-sky-500" />
             </div>
             <div className="my-2.5">
               <span className="font-mono-numbers text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -111,7 +111,7 @@ export const RevenueDashboard: React.FC = () => {
             <div className="space-y-2 my-2">
               <div className="flex justify-between items-center text-xs">
                 <span className="flex items-center gap-1.5 font-semibold text-slate-700">
-                  <Banknote className="w-3.5 h-3.5 text-emerald-600" /> Cash Drawer:
+                  <Banknote className="w-3.5 h-3.5 text-amber-500" /> Cash Drawer:
                 </span>
                 <span className="font-mono-numbers font-bold text-slate-900">₱{summary.cash_revenue.toFixed(2)}</span>
               </div>
@@ -150,10 +150,10 @@ export const RevenueDashboard: React.FC = () => {
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
                 Est. Net Profit Margin
               </span>
-              <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
+              <TrendingUp className="w-3.5 h-3.5 text-sky-400" />
             </div>
             <div className="my-2.5">
-              <span className="font-mono-numbers text-3xl font-extrabold text-emerald-400 tracking-tight">
+              <span className="font-mono-numbers text-3xl font-extrabold text-sky-400 tracking-tight">
                 ₱{summary.estimated_gross_profit.toFixed(2)}
               </span>
             </div>
@@ -226,8 +226,8 @@ export const RevenueDashboard: React.FC = () => {
                           <Smartphone className="w-3 h-3 text-blue-600" /> GCash
                         </span>
                       ) : j.payment_method === 'CASH' ? (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
-                          <Banknote className="w-3 h-3 text-emerald-600" /> Cash
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
+                          <Banknote className="w-3 h-3 text-amber-600" /> Cash
                         </span>
                       ) : (
                         <span className="text-slate-400 font-mono">—</span>
@@ -235,8 +235,8 @@ export const RevenueDashboard: React.FC = () => {
                     </td>
                     <td className="px-5 py-3">
                       {j.status === 'PAID' ? (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">
-                          <CheckCircle2 className="w-3 h-3 text-emerald-700" /> Paid
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-sky-50 text-sky-800 border border-sky-200">
+                          <CheckCircle2 className="w-3 h-3 text-sky-600" /> Paid
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-600">
